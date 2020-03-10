@@ -7,3 +7,9 @@ SOURCES += \
 
 RESOURCES += \
     Qrc.qrc
+
+CONFIG(debug, debug|release) {
+    DESTDIR = $$PWD/bin/debug
+} else {
+    DESTDIR = $$PWD/bin/release
+}

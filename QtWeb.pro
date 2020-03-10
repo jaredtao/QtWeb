@@ -1,3 +1,6 @@
 TEMPLATE = subdirs
 
-SUBDIRS += WebQml WebWidget
+SUBDIRS += \
+    WebQml \
+    WebWidget \
+    WebChannel
