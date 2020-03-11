@@ -49,33 +49,51 @@
 ****************************************************************************/
 
 #include "car.h"
-#include "controller.h"
+#include "WebSDK.h"
 #include <QtWidgets/QApplication>
 #include <QtWidgets/QGraphicsView>
 #include <QtWidgets/QGraphicsScene>
 #include <QSize>
 #include <QPoint>
+#include <QMainWindow>
+#include <QPushButton>
+#include <QObject>
+#include <QCoreApplication>
+#include <QtWebChannel/QQmlWebChannel>
 int main(int argc, char *argv[])
 {
     QApplication app(argc, argv);
 
+    QMainWindow window;
+    window.setWindowTitle("Qt Controlled Car");
+    window.resize(1024, 600);
     QGraphicsScene scene;
     scene.setSceneRect(-500, -500, 1000, 1000);
     scene.setItemIndexMethod(QGraphicsScene::NoIndex);
 
-    Car *car = new Car();
-    scene.addItem(car);
+    Car car;
+    scene.addItem(&car);
 
-    QGraphicsView view(&scene);
+    QGraphicsView view(&scene, &window);
     view.setRenderHint(QPainter::Antialiasing);
     view.setBackgroundBrush(Qt::darkGray);
-    view.setWindowTitle(QT_TRANSLATE_NOOP(QGraphicsView, "Qt Controlled Car"));
-    view.resize(400, 300);
-    view.show();
+    view.resize(1024, 550);
+    view.setGeometry(0, 50, 1024, 550);
 
-    Controller controller(car);
-    controller.setGeometry(view.x() + view.width(), view.y() + 30, controller.width(),
-                           controller.height());
-    controller.show();
+    QPushButton resetButton("Reset", &window);
+    resetButton.setGeometry(230, 0, 80, 30);
+
+    QPushButton button("Controller", &window);
+    button.setGeometry(320, 0, 80, 30);
+
+    WebSDK sdk(&window, &car);
+    QObject::connect(&button, &QPushButton::clicked, [&]() { sdk.openWeb(app.applicationDirPath() + "/page/index.html", WebSDK::BrowserType::Chrome); });
+    QObject::connect(&resetButton, &QPushButton::clicked, [&]() {
+        car.setSpeed(0);
+        car.setAngle(0);
+        car.setTransform({});
+    });
+
+    window.show();
     return app.exec();
 }

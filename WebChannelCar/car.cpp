@@ -57,7 +57,7 @@ QRectF Car::boundingRect() const
     return QRectF(-35, -81, 70, 115);
 }
 
-Car::Car() : color(Qt::green), wheelsAngle(0), speed(0)
+Car::Car(QGraphicsItem *parent) : QGraphicsObject(parent)
 {
     startTimer(1000 / 33);
     setFlag(QGraphicsItem::ItemIsMovable, true);
@@ -66,43 +66,79 @@ Car::Car() : color(Qt::green), wheelsAngle(0), speed(0)
 
 void Car::accelerate()
 {
-    if (speed < 10)
-        ++speed;
+    if (m_speed < 10) {
+        ++m_speed;
+        emit speedChanged(m_speed);
+    }
 }
 
 void Car::decelerate()
 {
-    if (speed > -10)
-        --speed;
+    if (m_speed > -10) {
+        --m_speed;
+        emit speedChanged(m_speed);
+    }
 }
 
 void Car::turnLeft()
 {
-    if (wheelsAngle > -30)
-        wheelsAngle -= 5;
+    if (m_angle > -30) {
+        m_angle -= 5;
+        emit angleChanged(m_angle);
+    }
 }
 
 void Car::turnRight()
 {
-    if (wheelsAngle < 30)
-       wheelsAngle += 5;
+    if (m_angle < 30) {
+        m_angle += 5;
+        emit angleChanged(m_angle);
+    }
+}
+
+const QColor &Car::getColor() const
+{
+    return m_color;
+}
+
+void Car::setColor(const QColor &color)
+{
+    m_color = color;
+}
+
+void Car::setSpeed(int32_t speed)
+{
+    if (m_speed == speed)
+        return;
+
+    m_speed = speed;
+    emit speedChanged(m_speed);
+}
+
+void Car::setAngle(int32_t angle)
+{
+    if (m_angle == angle)
+        return;
+
+    m_angle = angle;
+    emit angleChanged(m_angle);
 }
 
 void Car::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget)
 {
-    Q_UNUSED(option);
-    Q_UNUSED(widget);
+    Q_UNUSED(option)
+    Q_UNUSED(widget)
 
     painter->setBrush(Qt::gray);
     painter->drawRect(-20, -58, 40, 2); // front axel
-    painter->drawRect(-20, 7, 40, 2); // rear axel
+    painter->drawRect(-20, 7, 40, 2);   // rear axel
 
-    painter->setBrush(color);
+    painter->setBrush(m_color);
     painter->drawRect(-25, -79, 50, 10); // front wing
 
     painter->drawEllipse(-25, -48, 50, 20); // side pods
-    painter->drawRect(-25, -38, 50, 35); // side pods
-    painter->drawRect(-5, 9, 10, 10); // back pod
+    painter->drawRect(-25, -38, 50, 35);    // side pods
+    painter->drawRect(-5, 9, 10, 10);       // back pod
 
     painter->drawEllipse(-10, -81, 20, 100); // main body
 
@@ -114,13 +150,13 @@ void Car::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidg
 
     painter->save();
     painter->translate(-20, -58);
-    painter->rotate(wheelsAngle);
+    painter->rotate(m_angle);
     painter->drawRect(-10, -7, 10, 15); // front left
     painter->restore();
 
     painter->save();
     painter->translate(20, -58);
-    painter->rotate(wheelsAngle);
+    painter->rotate(m_angle);
     painter->drawRect(0, -7, 10, 15); // front left
     painter->restore();
 
@@ -130,16 +166,16 @@ void Car::paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidg
 
 void Car::timerEvent(QTimerEvent *event)
 {
-    Q_UNUSED(event);
+    Q_UNUSED(event)
 
     const qreal axelDistance = 54;
-    qreal wheelsAngleRads = qDegreesToRadians(wheelsAngle);
+    qreal wheelsAngleRads = qDegreesToRadians(qreal(m_angle));
     qreal turnDistance = ::cos(wheelsAngleRads) * axelDistance * 2;
-    qreal turnRateRads = wheelsAngleRads / turnDistance;  // rough estimate
+    qreal turnRateRads = wheelsAngleRads / turnDistance; // rough estimate
     qreal turnRate = qRadiansToDegrees(turnRateRads);
-    qreal rotation = speed * turnRate;
+    qreal rotation = m_speed * turnRate;
 
     setTransform(QTransform().rotate(rotation), true);
-    setTransform(QTransform::fromTranslate(0, -speed), true);
+    setTransform(QTransform::fromTranslate(0, -m_speed), true);
     update();
 }

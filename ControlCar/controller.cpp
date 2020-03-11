@@ -55,18 +55,6 @@
 Controller::Controller(Car *pCar, QWidget *parent)
     : QWidget(parent), m_pCar(pCar) {
     ui.setupUi(this);
-    //    car = new
-    //    org::example::Examples::CarInterface("org.example.CarExample", "/Car",
-    //                           QDBusConnection::sessionBus(), this);
-    //    startTimer(1000);
-}
-
-void Controller::timerEvent(QTimerEvent *event) {
-    //    Q_UNUSED(event);
-    //    if (car->isValid())
-    //        ui.label->setText("connected");
-    //    else
-    //        ui.label->setText("disconnected");
 }
 
 void Controller::on_accelerate_clicked() { m_pCar->accelerate(); }

@@ -61,10 +61,6 @@ class Controller : public QWidget
 
 public:
     Controller(Car *pCar, QWidget *parent = nullptr);
-
-protected:
-    void timerEvent(QTimerEvent *event);
-
 private slots:
     void on_accelerate_clicked();
     void on_decelerate_clicked();

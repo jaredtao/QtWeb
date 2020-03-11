@@ -8,9 +8,9 @@ QtWeb 混合开发系列文章的源码
 |--|--|
 |WebWidget|Widget使用WebEngine的最简Demo|
 |WebQml|Qml使用WebEngine的最简Demo|
+|ControlCar|控制小车的简单Demo|
 |WebChannelCar|WebChannel的方式控制小车|
 |ShapeCar|Qml Shapes 重写的小车|
-
 
 文章在博客和知乎专栏。
 

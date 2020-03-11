@@ -67,9 +67,6 @@ public Q_SLOTS:
     void turnLeft();
     void turnRight();
 
-Q_SIGNALS:
-    void crashed();
-
 protected:
     void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = 0);
     void timerEvent(QTimerEvent *event);

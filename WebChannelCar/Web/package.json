@@ -1,0 +1,18 @@
+{
+  "name": "WebSDK",
+  "version": "1.0.0",
+  "description": "editor sdk for web",
+  "main": "./src/main.ts",
+  "author": "LubanSoft",
+  "license": "MIT",
+  "scripts": {
+    "build": "webpack"
+  },
+  "devDependencies": {
+    "expose-loader": "^0.7.5",
+    "ts-loader": "^6.2.1",
+    "typescript": "^3.7.4",
+    "webpack": "^4.41.6",
+    "webpack-cli": "^3.3.11"
+  }
+}

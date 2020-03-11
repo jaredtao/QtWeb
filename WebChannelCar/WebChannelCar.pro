@@ -1,10 +1,17 @@
-QT += dbus widgets
+QT += dbus widgets webchannel websockets
 
 HEADERS += car.h \
-    controller.h
+    SocketWrap/websocketclientwrapper.h \
+    SocketWrap/websockettransport.h \
+    WebSDK.h
+
 SOURCES += car.cpp \
-    main.cpp \
-    controller.cpp
+    SocketWrap/websocketclientwrapper.cpp \
+    SocketWrap/websockettransport.cpp \
+    WebSDK.cpp    \
+    main.cpp
+
+#DESTDIR = $$PWD/bin
 
 CONFIG(debug, debug|release) {
     DESTDIR = $$PWD/bin/debug
@@ -12,5 +19,3 @@ CONFIG(debug, debug|release) {
     DESTDIR = $$PWD/bin/release
 }
 
-FORMS += \
-    controller.ui

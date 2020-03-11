@@ -1,0 +1,25 @@
+button#up {
+    position: absolute;
+    top: 10px;
+    left: 100px;
+}
+button#left {
+    position: absolute;
+    top: 80px;
+    left: 0px;
+}
+button#right {
+    position: absolute;
+    top: 80px;
+    left: 200px;
+}
+button#down {
+    position: absolute;
+    top: 150px;
+    left: 100px;
+}
+img#img {
+    position: absolute;
+    top: 75px;
+    left: 100px;
+}

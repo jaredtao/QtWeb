@@ -57,27 +57,50 @@
 class Car : public QGraphicsObject
 {
     Q_OBJECT
+    Q_PROPERTY(int speed READ getSpeed WRITE setSpeed NOTIFY speedChanged)
+    Q_PROPERTY(int angle READ getAngle WRITE setAngle NOTIFY angleChanged)
 public:
-    Car();
+    Car(QGraphicsItem *parent = nullptr);
+
     QRectF boundingRect() const;
 
-public Q_SLOTS:
+public slots:
+    int getSpeed() const
+    {
+        return m_speed;
+    }
+
+    int getAngle() const
+    {
+        return m_angle;
+    }
+    void setSpeed(int speed);
+
+    void setAngle(int angle);
+
+public slots:
     void accelerate();
     void decelerate();
     void turnLeft();
     void turnRight();
 
-Q_SIGNALS:
-    void crashed();
+    const QColor &getColor() const;
+
+    void setColor(const QColor &color);
+
+signals:
+    void speedChanged(int32_t speed);
+
+    void angleChanged(int32_t angle);
 
 protected:
-    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = 0);
+    void paint(QPainter *painter, const QStyleOptionGraphicsItem *option, QWidget *widget = nullptr);
     void timerEvent(QTimerEvent *event);
 
 private:
-    QBrush color;
-    qreal wheelsAngle; // used when applying rotation
-    qreal speed; // delta movement along the body axis
+    QColor m_color = Qt::green;
+    int32_t m_speed = 0;
+    int32_t m_angle = 0;
 };
 
 #endif // CAR_H
