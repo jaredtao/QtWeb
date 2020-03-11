@@ -2,7 +2,15 @@
 
 QtWeb 混合开发系列文章的源码
 
-其中WebQml和WebWidget为最简Demo
+项目结构
+
+|目录|描述|
+|--|--|
+|WebWidget|Widget使用WebEngine的最简Demo|
+|WebQml|Qml使用WebEngine的最简Demo|
+|WebChannelCar|WebChannel的方式控制小车|
+|ShapeCar|Qml Shapes 重写的小车|
+
 
 文章在博客和知乎专栏。
 

@@ -3,4 +3,11 @@ TEMPLATE = subdirs
 SUBDIRS += \
     WebQml \
     WebWidget \
-    WebChannel
+    ShapeCar \
+    ControlCar \
+    WebChannelCar
+
+OTHER_FILES += \
+    README.md   \
+    .clang-format   \
+    LICENSE
