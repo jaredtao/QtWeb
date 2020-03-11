@@ -1,7 +1,0 @@
-<RCC>
-    <qresource prefix="/">
-        <file>main.qml</file>
-        <file>track.png</file>
-        <file>ScrollBackground.qml</file>
-    </qresource>
-</RCC>
