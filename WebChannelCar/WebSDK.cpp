@@ -43,7 +43,7 @@ WebSDK::~WebSDK()
 
 void WebSDK::openWeb(const QString &htmlFile, WebSDK::BrowserType type, const QUrlQuery &urlQuery)
 {
-    const static QString browserArray[] = { "chrome", "firefox", "IExplore" };
+    const static QString browserArray[] = { "chrome", "firefox", "IExplore", "MicrosoftEdge" };
 
     QUrl url = QUrl::fromLocalFile(htmlFile);
 

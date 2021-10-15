@@ -18,7 +18,8 @@ public:
     {
         Chrome = 0,
         Firefox,
-        IE
+        IE,
+        Edge
     };
     explicit WebSDK(QWidget *pMainWindow, Car *car, QObject *parent = nullptr);
     virtual ~WebSDK() override;

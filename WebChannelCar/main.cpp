@@ -87,7 +87,7 @@ int main(int argc, char *argv[])
     button.setGeometry(320, 0, 80, 30);
 
     WebSDK sdk(&window, &car);
-    QObject::connect(&button, &QPushButton::clicked, [&]() { sdk.openWeb(app.applicationDirPath() + "/page/index.html", WebSDK::BrowserType::Chrome); });
+    QObject::connect(&button, &QPushButton::clicked, [&]() { sdk.openWeb(app.applicationDirPath() + "/page/index.html", WebSDK::BrowserType::Edge); });
     QObject::connect(&resetButton, &QPushButton::clicked, [&]() {
         car.setSpeed(0);
         car.setAngle(0);
